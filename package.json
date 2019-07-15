@@ -9,6 +9,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
+    "mongodb": "^3.2.7",
     "react": "^16.8.6",
     "react-autofocus": "^0.2.0",
     "react-dom": "^16.8.6",
