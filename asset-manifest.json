@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Trip-Packer/static/css/main.178bf855.chunk.css",
+    "main.js": "/Trip-Packer/static/js/main.00ea17f3.chunk.js",
+    "main.js.map": "/Trip-Packer/static/js/main.00ea17f3.chunk.js.map",
+    "runtime~main.js": "/Trip-Packer/static/js/runtime~main.06219017.js",
+    "runtime~main.js.map": "/Trip-Packer/static/js/runtime~main.06219017.js.map",
+    "static/css/2.22a7d4ef.chunk.css": "/Trip-Packer/static/css/2.22a7d4ef.chunk.css",
+    "static/js/2.578c70e6.chunk.js": "/Trip-Packer/static/js/2.578c70e6.chunk.js",
+    "static/js/2.578c70e6.chunk.js.map": "/Trip-Packer/static/js/2.578c70e6.chunk.js.map",
+    "index.html": "/Trip-Packer/index.html",
+    "precache-manifest.6ba5397a3b23f4b37ca7086dcf8bd405.js": "/Trip-Packer/precache-manifest.6ba5397a3b23f4b37ca7086dcf8bd405.js",
+    "service-worker.js": "/Trip-Packer/service-worker.js",
+    "static/css/2.22a7d4ef.chunk.css.map": "/Trip-Packer/static/css/2.22a7d4ef.chunk.css.map",
+    "static/css/main.178bf855.chunk.css.map": "/Trip-Packer/static/css/main.178bf855.chunk.css.map"
+  }
+}
