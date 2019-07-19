@@ -6,6 +6,13 @@ import List from './Components/List'
 import ListInput from './Components/ListInput'
 import LOL from './Components/LOL'
 import NavBar from './Components/NavBar'
+import LogIn from './Components/LogIn'
+import SignUp from './Components/SignUp'
+import Landing from './Components/Landing'
+
+var styles1 = {
+	flex: 1
+};
 
 export default class App extends Component{
     constructor(props) {
@@ -22,15 +29,18 @@ export default class App extends Component{
             editing: false,
             email: '',
             password: '',
-            logInPage: true,
+            logInPage: false,
             signUpPage: false,
             llPage: false,
-            listOfLists: []
+            listOfLists: [],
+            lPage: false,
+            landing: true
         }
     }
     componentDidMount(){
 
     }
+
     getList = (email, _id) => {
         fetch("http://localhost:5000/list", {
             method: 'POST',
@@ -45,7 +55,8 @@ export default class App extends Component{
             console.log(jsonData)
             this.setState({
                 jsonData: jsonData,
-                llPage: ! this.state.llPage
+                llPage: ! this.state.llPage,
+                lPage: ! this.state.lPage
         })})
     }
     auth = (email, password) => {
@@ -61,7 +72,6 @@ export default class App extends Component{
             .then( jsonData => this.postAuth(jsonData))
     }
     sampleFetch() {
-        let x;
         fetch("http://localhost:5000/")
             .then( response => response.json() )
             .then( jsonData => console.log(jsonData))
@@ -84,7 +94,12 @@ export default class App extends Component{
                 body: JSON.stringify({email: cleanedE, password: cleanedP})
             })
             .then( response => response.json() )
-            .then( jsonData => console.log(jsonData))
+            .then( jsonData => {if (jsonData) {
+                alert("You may now Log in")
+                this.clickLogin()
+            } else {
+                alert("Use a different email")
+            }})
         }
     }
     store = (email, jsonData) => {
@@ -105,6 +120,8 @@ export default class App extends Component{
                     title: this.state.jsonData.title
                 }
             }))
+            .then(this.getAll(this.state.email))
+
         } else {
             fetch("http://localhost:5000/update", {
                 method: 'POST',
@@ -116,8 +133,9 @@ export default class App extends Component{
             })
             .then( response => response.json() )
             .then( jsonData => console.log(jsonData))
+            .then(this.getAll(this.state.email))
         }
-        this.getAll(this.state.email)
+
     }
     onChangeTitle = (evt) =>{
         /* Handler function for each inputObj changing value */
@@ -269,7 +287,7 @@ export default class App extends Component{
                 body: JSON.stringify({email: email, jsonData: jsonData})
             })
             .then( response => response.json() )
-            .then( jsonData => console.log(jsonData))
+            .then( jsonData => this.getAll(this.state.email))
         } else {
             fetch("http://localhost:5000/update", {
                 method: 'POST',
@@ -280,12 +298,16 @@ export default class App extends Component{
                 body: JSON.stringify({email: email, jsonData: jsonData})
             })
             .then( response => response.json() )
-            .then( jsonData => console.log(jsonData))
+            .then( jsonData => this.getAll(this.state.email))
+            .then()
         }
         this.setState({
-            llPage: ! this.state.llPage
-        }, this.getAll(this.state.email))
+            llPage: ! this.state.llPage,
+            lPage: ! this.state.lPage
+        })
+
     }
+
     completeLogin = (email, password) => {
         if (email === '' || password === ''){
             alert("Fields cannot be blank")
@@ -349,29 +371,114 @@ export default class App extends Component{
                 items: [],
                 title: 'Untitled',
             },
-            llPage: ! this.state.llPage
+            llPage: ! this.state.llPage,
+            lPage: ! this.state.lPage
         })
     }
+
+    goHome = () => {
+        this.setState({
+            jsonData: {
+                _id: null,
+                items: [],
+                title: ''
+            },
+            jsonInput: [
+            ],
+            inputValue: '',
+            editing: false,
+            email: '',
+            password: '',
+            logInPage: false,
+            signUpPage: false,
+            llPage: false,
+            listOfLists: [],
+            landing: true
+        })
+    }
+
+    clickLogin = () => {
+        this.setState({
+            email: '',
+            password: '',
+            logInPage: true,
+            signUpPage: false,
+            llPage: false,
+            landing: false
+        })
+    }
+
+    clickSignUp = () => {
+        this.setState({
+            email: '',
+            password: '',
+            logInPage: false,
+            signUpPage: true,
+            llPage: false,
+            login: false,
+            landing: false
+        })
+    }
+
+    clickLogOut = () => {
+        this.setState({
+            jsonData: {
+                _id: null,
+                items: [],
+                title: ''
+            },
+            jsonInput: [
+            ],
+            inputValue: '',
+            editing: false,
+            email: '',
+            password: '',
+            logInPage: true,
+            signUpPage: false,
+            llPage: false,
+            listOfLists: [],
+            lPage: false,
+            landing: false
+        })
+    }
+
 
     render(){
         return(
             <div>
-                <NavBar />
-                <div className = { !this.state.logInPage && !this.state.llPage ? "show" : "noShow"  } >
+                <NavBar goHome={this.goHome} clickLogOut={this.clickLogOut} clickLogin={this.clickLogin} clickSignUp={this.clickSignUp} show={this.state.lPage || this.state.llPage}/>
+                <div style={{borderTop: "5px solid"}}></div>
+                {this.state.landing? <Landing /> : <div></div> }
+                <div className = { this.state.lPage ? "show" : "noShow"  } >
                     <ListTitle goBack={this.goBack} saveAll={this.saveAll} title={this.state.jsonData.title} editing={this.state.editing} addItem={() => this.addItem('', false)} editFunc={this.editFunc} onChangeTitle={this.onChangeTitle}/>
                     <List jsonData={this.state.jsonData.items} onCheckFunc={this.onCheckFunc}/>
                     <ListInput jsonInput={this.state.jsonInput} editing={this.state.editing}/>
                 </div>
-                <div className = { ! this.state.logInPage ? "noShow" : "showLogin" }>
-                    <input value={this.state.email} type="text" autoFocus={true} className='inputStyle' onChange={evt => this.onChangeEmail(evt)} />
-                    <input value={this.state.password} type="text" autoFocus={true} className='inputStyle' onChange={evt => this.onChangePassword(evt)} />
-                    <p onClick={() => this.completeLogin(this.state.email, this.state.password)}>Login</p>
-                    <p onClick={() => this.signUp(this.state.email, this.state.password)}>Sign Up</p>
+                <div className = { this.state.logInPage || this.state.signUpPage? "showLogin" : "noShow"  }>
+                    { this.state.logInPage? <LogIn/> : <SignUp/>}
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-8 offset-2 col-md-4 offset-md-4">
+                                <input value={this.state.email} type="text" placeholder=" email" autoFocus={true} className='inputStyle' style={{width: "100%"}} onChange={evt => this.onChangeEmail(evt)} />
+                            </div>
+                        </div>
+                        <br />
+                        <div className="row">
+                            <div className="col-8 offset-2 col-md-4 offset-md-4">
+                                <input value={this.state.password} type="text" placeholder=" password" className='inputStyle' style={{width: "100%"}} onChange={evt => this.onChangePassword(evt)} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-4 offset-2 offset-md-4">
+                                <p className = { this.state.signUpPage ? "showLogin " : "noShow" } onClick={() => this.signUp(this.state.email, this.state.password)}>Sign Up</p><p className = { this.state.logInPage ? "showLogin" : "noShow"  } onClick={() => this.completeLogin(this.state.email, this.state.password)}>Login</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className = { ! this.state.logInPage && this.state.llPage ? "show":  "noShow"  } >
+                <div className = {this.state.llPage ? "show":  "noShow"  } >
                     <LOL lol={this.state.listOfLists} addList={this.addList} getList={this.getList} email={this.state.email}/>
                 </div>
-                <p onClick={() => console.log(this.state)}>See State</p>
+
 
             </div>
 

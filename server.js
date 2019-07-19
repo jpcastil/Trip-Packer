@@ -5,7 +5,7 @@ const url = "mongodb://localhost:27017/";
 const ObjectId = require('mongodb').ObjectID;
 
 app.listen(5000, () =>
-  console.log('Example app listening on port 5000!'),
+  console.log('Trip Packer Server listening on port 5000!'),
 );
 
 app.use(function(req, res, next) {

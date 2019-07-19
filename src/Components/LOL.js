@@ -1,36 +1,15 @@
 import React, {Component} from 'react';
 import './../App.css';
 import LOLItem from './LOLItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 
-/*<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"><i class="fas fa-leaf fa-2x mainColor"></i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#" style="font-family: 'Short Stack', cursive;">Home <span class="sr-only">(current)</span></a>
-            </li>
-
-        </ul>
-        <span class=" navbar-text d-none d-md-block">
-            <a class="mainFont" href="./login.html" style="color:grey; text-decoration: none;"> Login </a>
-        </span>
-        <span class=" navbar-text d-none d-md-block">
-            <a class="mainFont" href="./login.html" style="color:grey; padding-left: 20px; text-decoration: none;"> Sign Up </a>
-        </span>
-    </div>
-</nav>*/
 
 
-/*
-<LOL lol={this.state.listOfLists} addList={this.addList} getList={this.getList} email={this.state.email}/>
 
-{this.props.item.title}
-<p onClick={() => this.props.getList(this.props.email, this.props.item._id)}>>></p>
-*/
+
+
 export default class LOL extends Component {
     mapLOL = () => {
         let newLs = []
@@ -42,9 +21,18 @@ export default class LOL extends Component {
     }
     render(){
         return(
-            <div>
-                {this.mapLOL()}
-                <p onClick={this.props.addList}>+</p>
+            <div className="container">
+                <div className="row align-items-center">
+                    <div className="col-6 offset-3">
+                        <h1 className='text-center'>My Trips</h1>
+                    </div>
+                    <div className="col-1">
+                        <FontAwesomeIcon onClick={this.props.addList} icon={faPlusCircle} size="2x"/>
+                    </div>
+                </div>
+                <div className="row">
+                    {this.mapLOL()}
+                </div>
             </div>
         )
     }

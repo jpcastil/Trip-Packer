@@ -3,6 +3,7 @@ import './../App.css';
 import ListItem from './ListItem'
 
 /*
+
                 jsonData
     {
     key:83,
@@ -29,7 +30,7 @@ export default class App extends Component{
 
     render(){
         return(
-            <div>
+            <div className="container">
                 {this.mapList()}
             </div>
         )

@@ -19,28 +19,37 @@
   color: white;
 }
 
+.loginT {
+    color: black;
+    font-size: 2em;
+    text-align: center;
+}
 .App-link {
   color: #61dafb;
+}
+
+.fillUp {
+    flex: 1
 }
 
 .noShow {
     display: none
 }
 
+.test {
+    color: red;
+}
+
 .show {
     display: block
 }
 
+.test {
+    color: red
+}
+
+
 
 .inputStyle {
     border: 1px solid grey;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './../App.css';
 import InputItem from './InputItem'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave } from '@fortawesome/free-solid-svg-icons'
 
 /*
                 jsonData
@@ -31,7 +29,7 @@ export default class App extends Component{
 
     render(){
         return(
-            <div>
+            <div className="container">
                 {this.mapList()}
             </div>
         )
